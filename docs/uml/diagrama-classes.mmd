@@ -1,0 +1,104 @@
+classDiagram
+    class Usuario {
+        +int id
+        +string nome
+        +string email
+        +string senhaHash
+        +string tipoLogin
+        login()
+        cadastrar()
+    }
+
+    class Cliente {
+        +string enderecoEntrega
+    }
+
+    class Administrador {
+        +string cargo
+        cadastrarKit()
+        atualizarEstoque()
+        inserirVideoAula()
+    }
+
+    class KitDePlanta {
+        +int id
+        +string nome
+        +string descricao
+        +string nivelDificuldade
+        +string ambiente
+        +decimal preco
+        +int estoque
+    }
+
+    class Pedido {
+        +int id
+        +date dataCriacao
+        +string status
+        +decimal valorTotal
+        calcularTotal()
+    }
+
+    class ItemPedido {
+        +int quantidade
+        +decimal precoUnitario
+    }
+
+    class Pagamento {
+        +int id
+        +string metodo
+        +string status
+        +decimal valor
+        processarPagamento()
+    }
+
+    class Curso {
+        +int id
+        +string titulo
+    }
+
+    class Aula {
+        +int id
+        +string titulo
+        +string urlVideo
+        +int duracaoMin
+    }
+
+    class Cartilha {
+        +int id
+        +string titulo
+        +string conteudo
+        +string formato
+    }
+
+    class PlantaCadastrada {
+        +int id
+        +string apelido
+        +date dataCadastro
+        +date ultimaRega
+        +int frequenciaRegaDias
+        registrarRega()
+    }
+
+    class Notificacao {
+        +int id
+        +string tipo
+        +string mensagem
+        +datetime dataEnvio
+    }
+
+    Usuario <|-- Cliente
+    Usuario <|-- Administrador
+
+    Cliente "1" --> "0..*" Pedido : realiza
+    Pedido "1" *-- "1..*" ItemPedido : contem
+    ItemPedido "*" --> "1" KitDePlanta : referencia
+    Pedido "1" --> "1" Pagamento : gera
+
+    KitDePlanta "1" --> "0..1" Curso : desbloqueia
+    Curso "1" *-- "0..*" Aula : possui
+    Curso "1" *-- "0..*" Cartilha : possui
+
+    Cliente "1" --> "0..*" PlantaCadastrada : cadastra em Meu Jardim
+    PlantaCadastrada "1" --> "0..*" Notificacao : gera
+
+    Administrador "1" --> "0..*" KitDePlanta : gerencia

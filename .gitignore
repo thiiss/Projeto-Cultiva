@@ -1,0 +1,18 @@
+# Dependências
+node_modules/
+venv/
+__pycache__/
+
+# Builds
+dist/
+build/
+
+# Ambiente
+.env
+.env.local
+
+# Editor / SO
+.DS_Store
+.vscode/
+.idea/
+*.log

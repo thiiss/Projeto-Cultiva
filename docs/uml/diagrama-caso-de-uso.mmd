@@ -1,0 +1,39 @@
+flowchart LR
+    Cliente(["🧍 Cliente"])
+    Admin(["🧑‍💼 Administrador"])
+    Gateway(["💳 Gateway de Pagamento<br/>(externo)"])
+
+    subgraph Sistema["Sistema Cultiva"]
+        direction TB
+        UC1(["Cadastrar-se / Login"])
+        UC2(["Visualizar catálogo<br/>de Kits de Plantas"])
+        UC3(["Adicionar Kit<br/>ao carrinho"])
+        UC4(["Realizar Checkout"])
+        UC5(["Efetuar Pagamento<br/>(Pix / Cartão)"])
+        UC6(["Acessar Mini Curso<br/>desbloqueado"])
+        UC7(["Assistir videoaulas /<br/>Ler cartilhas"])
+        UC8(["Cadastrar plantas<br/>(Meu Jardim)"])
+        UC9(["Receber alertas<br/>de rega/adubação"])
+        UC10(["Pesquisar plantas,<br/>insumos ou artigos"])
+        UC11(["Cadastrar / atualizar<br/>Kits de Plantas"])
+        UC12(["Atualizar estoque"])
+        UC13(["Inserir videoaulas<br/>na nuvem"])
+    end
+
+    Cliente --> UC1
+    Cliente --> UC2
+    Cliente --> UC3
+    Cliente --> UC4
+    Cliente --> UC6
+    Cliente --> UC8
+    Cliente --> UC9
+    Cliente --> UC10
+
+    UC3 --> UC4
+    UC4 -. "«include»" .-> UC5
+    UC5 --> Gateway
+    UC6 -. "«include»" .-> UC7
+
+    Admin --> UC11
+    Admin --> UC12
+    Admin --> UC13
